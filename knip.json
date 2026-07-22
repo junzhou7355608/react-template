@@ -1,0 +1,47 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["src/api/**/*.{ts,tsx}", "src/components/icons/**/*.{ts,tsx}"],
+  "includeEntryExports": true,
+  "ignoreIssues": {
+    "src/api/**": [
+      "files",
+      "exports",
+      "nsExports",
+      "types",
+      "nsTypes",
+      "enumMembers",
+      "namespaceMembers",
+      "duplicates"
+    ],
+    "src/components/icons/**": [
+      "files",
+      "exports",
+      "nsExports",
+      "types",
+      "nsTypes",
+      "enumMembers",
+      "namespaceMembers",
+      "duplicates"
+    ],
+    "src/components/ui/**": [
+      "exports",
+      "nsExports",
+      "types",
+      "nsTypes",
+      "enumMembers",
+      "namespaceMembers"
+    ],
+    "src/routeTree.gen.ts": [
+      "files",
+      "exports",
+      "nsExports",
+      "types",
+      "nsTypes",
+      "enumMembers",
+      "namespaceMembers",
+      "duplicates"
+    ]
+  },
+  "treatConfigHintsAsErrors": true,
+  "treatTagHintsAsErrors": true
+}

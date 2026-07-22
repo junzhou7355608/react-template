@@ -1,0 +1,63 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+.next
+out
+dist
+build
+.turbo
+
+# Lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Generated files
+*.min.js
+*.min.css
+coverage
+.nyc_output
+src/routeTree.gen.ts
+apps/admin/src/routeTree.gen.ts
+apps/miniapp/src/api
+apps/server/generated/prisma
+packages/api/src
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Cache
+.cache
+.parcel-cache
+.eslintcache
+.stylelintcache
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea
+*.swp
+*.swo
+*~
+
+# Tool metadata
+.codex
+.opencode
+
+# Misc
+*.tsbuildinfo
+.next-env.d.ts

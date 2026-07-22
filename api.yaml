@@ -1,0 +1,30 @@
+openapi: '3.0.3'
+info:
+  title: React Template API
+  version: '1.0.0'
+  description: Minimal API generation example for React Template.
+
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Check service health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok

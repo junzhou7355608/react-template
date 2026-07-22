@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/node-env"
+
+pnpm lint:staged
