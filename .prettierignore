@@ -20,10 +20,6 @@ yarn.lock
 coverage
 .nyc_output
 src/routeTree.gen.ts
-apps/admin/src/routeTree.gen.ts
-apps/miniapp/src/api
-apps/server/generated/prisma
-packages/api/src
 
 # Logs
 *.log
@@ -53,10 +49,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
-
-# Tool metadata
-.codex
-.opencode
 
 # Misc
 *.tsbuildinfo
