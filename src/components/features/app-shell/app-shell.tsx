@@ -257,7 +257,7 @@ function AppNavItems({
                 <SidebarMenuSubItem key={item}>
                   <SidebarMenuSubButton
                     asChild
-                    className="h-12 w-full translate-x-0 px-2"
+                    className="h-12 w-full translate-x-0 pr-2 pl-8"
                     isActive={
                       activeMenu === `workspace:${workspace.id}:${item}`
                     }
@@ -303,7 +303,7 @@ function AppNavItems({
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton
                   asChild
-                  className="h-12 w-full translate-x-0 px-2"
+                  className="h-12 w-full translate-x-0 pr-2 pl-8"
                   isActive={activeMenu === 'resource:components'}
                 >
                   <button
@@ -319,7 +319,7 @@ function AppNavItems({
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton
                   asChild
-                  className="h-12 w-full translate-x-0 px-2"
+                  className="h-12 w-full translate-x-0 pr-2 pl-8"
                   isActive={activeMenu === 'resource:assets'}
                 >
                   <button
