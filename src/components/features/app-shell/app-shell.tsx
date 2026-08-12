@@ -10,11 +10,11 @@ import {
   type LucideIcon,
   Moon,
   Settings2,
+  UserRound,
 } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
 import { useState } from 'react';
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   Collapsible,
@@ -379,17 +379,21 @@ export function AppSidebar({
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div className="flex items-center gap-3">
-          <Avatar size="sm">
-            <AvatarFallback>项</AvatarFallback>
-          </Avatar>
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium">项目用户</p>
-            <p className="truncate text-xs text-sidebar-foreground/60">
-              you@example.com
-            </p>
-          </div>
-        </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" type="button">
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <UserRound className="size-4" aria-hidden="true" />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col items-start gap-0">
+                <span className="truncate text-sm font-semibold">项目用户</span>
+                <span className="truncate text-xs text-sidebar-foreground/60">
+                  you@example.com
+                </span>
+              </span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   );
