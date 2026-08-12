@@ -10,7 +10,12 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig([
-  globalIgnores(['dist', 'src/api/**']),
+  globalIgnores([
+    'dist',
+    'src/api/**',
+    'src/components/ui/**',
+    'src/hooks/use-mobile.ts',
+  ]),
   {
     files: ['**/*.{js,mjs,cjs}'],
     extends: [js.configs.recommended],
