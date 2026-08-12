@@ -252,11 +252,12 @@ function AppNavItems({
             </SidebarMenuButton>
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <SidebarMenuSub>
+            <SidebarMenuSub className="mx-0 mt-1 translate-x-0 border-l-0 p-0">
               {workspace.items.map((item) => (
                 <SidebarMenuSubItem key={item}>
                   <SidebarMenuSubButton
                     asChild
+                    className="h-12 w-full translate-x-0 px-2"
                     isActive={
                       activeMenu === `workspace:${workspace.id}:${item}`
                     }
@@ -298,10 +299,11 @@ function AppNavItems({
             </SidebarMenuButton>
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <SidebarMenuSub>
+            <SidebarMenuSub className="mx-0 mt-1 translate-x-0 border-l-0 p-0">
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton
                   asChild
+                  className="h-12 w-full translate-x-0 px-2"
                   isActive={activeMenu === 'resource:components'}
                 >
                   <button
@@ -317,6 +319,7 @@ function AppNavItems({
               <SidebarMenuSubItem>
                 <SidebarMenuSubButton
                   asChild
+                  className="h-12 w-full translate-x-0 px-2"
                   isActive={activeMenu === 'resource:assets'}
                 >
                   <button
