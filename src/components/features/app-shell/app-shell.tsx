@@ -129,7 +129,7 @@ function AppWorkspaceSwitcher({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
-            className="w-88 max-w-[calc(100vw-2rem)] p-2"
+            className="w-78 max-w-[calc(100vw-2rem)] p-2"
             side="bottom"
           >
             <DropdownMenuRadioGroup
@@ -159,7 +159,7 @@ function AppWorkspaceSwitcher({
                       </ItemMedia>
                       <ItemContent>
                         <ItemTitle>{workspace.label}</ItemTitle>
-                        <ItemDescription>
+                        <ItemDescription className="text-xs">
                           {workspace.description}
                         </ItemDescription>
                       </ItemContent>
