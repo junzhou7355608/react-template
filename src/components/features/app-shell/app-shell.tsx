@@ -1,5 +1,12 @@
-import { BookOpen, ChevronRight, Layers3, Moon } from 'lucide-react';
+import {
+  BookOpen,
+  ChevronRight,
+  ChevronsUpDown,
+  Layers3,
+  Moon,
+} from 'lucide-react';
 import type { PropsWithChildren } from 'react';
+import { useState } from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -8,6 +15,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -28,48 +42,125 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 
-const navigationItems = [
+type WorkspaceId = 'business' | 'config' | 'operation';
+
+interface Workspace {
+  id: WorkspaceId;
+  label: string;
+  groupLabel: string;
+  items: string[];
+}
+
+const defaultWorkspace: Workspace = {
+  id: 'business',
+  label: '业务中心',
+  groupLabel: '业务管理',
+  items: ['订单管理', '客户管理'],
+};
+
+const workspaces: Workspace[] = [
+  defaultWorkspace,
   {
-    href: '#overview',
-    label: '概览',
-    icon: BookOpen,
+    id: 'config',
+    label: '配置中心',
+    groupLabel: '系统配置',
+    items: ['角色权限', '参数设置'],
+  },
+  {
+    id: 'operation',
+    label: '经营中心',
+    groupLabel: '经营分析',
+    items: ['业绩看板', '趋势报表'],
   },
 ];
 
-function AppBrand({ onClick }: { onClick?: () => void }) {
+const overviewHref = '#overview';
+const overviewLabel = '概览';
+const OverviewIcon = BookOpen;
+
+function AppWorkspaceSwitcher({
+  selectedWorkspace,
+  onWorkspaceChange,
+}: {
+  selectedWorkspace: Workspace;
+  onWorkspaceChange: (workspaceId: WorkspaceId) => void;
+}) {
   return (
-    <a
-      className="flex items-center gap-3 rounded-lg focus-visible:ring-2 focus-visible:ring-sidebar-ring focus-visible:outline-none"
-      href="#overview"
-      onClick={onClick}
-    >
-      <span className="grid size-9 place-items-center rounded-xl bg-sidebar-primary text-sidebar-primary-foreground shadow-sm">
-        <Layers3 className="size-4" aria-hidden="true" />
-      </span>
-      <span className="font-semibold tracking-tight">React Template</span>
-    </a>
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton
+              className="h-auto min-h-12 data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground"
+              size="lg"
+            >
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <Layers3 className="size-4" aria-hidden="true" />
+              </span>
+              <span className="flex min-w-0 flex-1 flex-col items-start gap-0">
+                <span className="truncate text-sm font-semibold">
+                  {selectedWorkspace.label}
+                </span>
+                <span className="truncate text-xs text-sidebar-foreground/60">
+                  React Template
+                </span>
+              </span>
+              <ChevronsUpDown className="ml-auto size-4" aria-hidden="true" />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="start"
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56"
+            side="bottom"
+          >
+            <DropdownMenuRadioGroup
+              value={selectedWorkspace.id}
+              onValueChange={(value) => {
+                if (
+                  value === 'business' ||
+                  value === 'config' ||
+                  value === 'operation'
+                ) {
+                  onWorkspaceChange(value);
+                }
+              }}
+            >
+              {workspaces.map((workspace) => (
+                <DropdownMenuRadioItem key={workspace.id} value={workspace.id}>
+                  {workspace.label}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
   );
 }
 
-function AppNavItems({ onNavigate }: { onNavigate?: () => void }) {
+function AppNavItems({
+  onNavigate,
+  workspace,
+}: {
+  onNavigate?: () => void;
+  workspace: Workspace;
+}) {
   return (
     <SidebarMenu>
-      {navigationItems.map(({ href, icon: Icon, label }) => (
-        <SidebarMenuItem key={href}>
-          <SidebarMenuButton asChild isActive>
-            <a aria-current="page" href={href} onClick={onNavigate}>
-              <Icon aria-hidden="true" />
-              <span>{label}</span>
-            </a>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      ))}
+      <SidebarMenuItem>
+        <SidebarMenuButton asChild isActive>
+          <a aria-current="page" href={overviewHref} onClick={onNavigate}>
+            <OverviewIcon aria-hidden="true" />
+            <span>{overviewLabel}</span>
+          </a>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
       <SidebarMenuItem>
         <Collapsible className="group/collapsible" defaultOpen>
           <CollapsibleTrigger asChild>
             <SidebarMenuButton>
               <Layers3 aria-hidden="true" />
-              <span>资源</span>
+              <span>{workspace.groupLabel}</span>
               <ChevronRight
                 aria-hidden="true"
                 className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90"
@@ -78,20 +169,15 @@ function AppNavItems({ onNavigate }: { onNavigate?: () => void }) {
           </CollapsibleTrigger>
           <CollapsibleContent>
             <SidebarMenuSub>
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton asChild>
-                  <button type="button">
-                    <span>组件</span>
-                  </button>
-                </SidebarMenuSubButton>
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem>
-                <SidebarMenuSubButton asChild>
-                  <button type="button">
-                    <span>配置</span>
-                  </button>
-                </SidebarMenuSubButton>
-              </SidebarMenuSubItem>
+              {workspace.items.map((item) => (
+                <SidebarMenuSubItem key={item}>
+                  <SidebarMenuSubButton asChild>
+                    <button type="button">
+                      <span>{item}</span>
+                    </button>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              ))}
             </SidebarMenuSub>
           </CollapsibleContent>
         </Collapsible>
@@ -100,7 +186,13 @@ function AppNavItems({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-export function AppSidebar() {
+export function AppSidebar({
+  selectedWorkspace,
+  onWorkspaceChange,
+}: {
+  selectedWorkspace: Workspace;
+  onWorkspaceChange: (workspaceId: WorkspaceId) => void;
+}) {
   const { isMobile, setOpenMobile } = useSidebar();
   const closeMobileSidebar = () => {
     if (isMobile) {
@@ -111,13 +203,19 @@ export function AppSidebar() {
   return (
     <Sidebar aria-label="应用导航" collapsible="offcanvas">
       <SidebarHeader>
-        <AppBrand onClick={closeMobileSidebar} />
+        <AppWorkspaceSwitcher
+          onWorkspaceChange={onWorkspaceChange}
+          selectedWorkspace={selectedWorkspace}
+        />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>导航</SidebarGroupLabel>
           <SidebarGroupContent>
-            <AppNavItems onNavigate={closeMobileSidebar} />
+            <AppNavItems
+              onNavigate={closeMobileSidebar}
+              workspace={selectedWorkspace}
+            />
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
@@ -162,9 +260,17 @@ export function AppHeader() {
 }
 
 export function AppShell({ children }: PropsWithChildren) {
+  const [workspaceId, setWorkspaceId] = useState<WorkspaceId>('business');
+  const selectedWorkspace =
+    workspaces.find((workspace) => workspace.id === workspaceId) ??
+    defaultWorkspace;
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar
+        onWorkspaceChange={setWorkspaceId}
+        selectedWorkspace={selectedWorkspace}
+      />
       <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   );
