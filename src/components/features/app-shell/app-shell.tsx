@@ -30,7 +30,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
@@ -414,40 +413,29 @@ export function AppSidebar({
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-56"
+                className="w-46"
                 side={isMobile ? 'bottom' : 'right'}
                 sideOffset={4}
               >
-                <DropdownMenuLabel className="p-0 font-normal">
-                  <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                      <UserRound className="size-4" aria-hidden="true" />
-                    </span>
-                    <span className="flex min-w-0 flex-1 flex-col gap-0">
-                      <span className="truncate font-medium">项目用户</span>
-                      <span className="truncate text-xs text-muted-foreground">
-                        you@example.com
-                      </span>
-                    </span>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="min-h-10 px-2.5 py-2">
                     <CircleUserRound aria-hidden="true" />
                     个人信息
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="min-h-10 px-2.5 py-2">
                     <KeyRound aria-hidden="true" />
                     修改密码
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem className="min-h-10 px-2.5 py-2">
                     <Settings2 aria-hidden="true" />
                     账号设置
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
+                <DropdownMenuItem
+                  className="min-h-10 px-2.5 py-2"
+                  variant="destructive"
+                >
                   <LogOut aria-hidden="true" />
                   退出登录
                 </DropdownMenuItem>
