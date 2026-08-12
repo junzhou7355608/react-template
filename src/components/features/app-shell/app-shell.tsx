@@ -199,9 +199,13 @@ function AppNavItems({
   };
 
   return (
-    <SidebarMenu className="gap-2">
+    <SidebarMenu className="gap-1">
       <SidebarMenuItem>
-        <SidebarMenuButton asChild isActive={activeMenu === overviewMenuId}>
+        <SidebarMenuButton
+          asChild
+          isActive={activeMenu === overviewMenuId}
+          size="lg"
+        >
           <a
             aria-current={activeMenu === overviewMenuId ? 'page' : undefined}
             href={overviewHref}
@@ -220,6 +224,7 @@ function AppNavItems({
           onClick={() => {
             selectMenu(workspaceMenuId);
           }}
+          size="lg"
         >
           <LayoutGrid aria-hidden="true" />
           <span>工作台</span>
@@ -236,6 +241,7 @@ function AppNavItems({
               onClick={() => {
                 selectMenu(workspaceGroupMenuId, false);
               }}
+              size="lg"
             >
               <Layers3 aria-hidden="true" />
               <span>{workspace.groupLabel}</span>
@@ -281,6 +287,7 @@ function AppNavItems({
               onClick={() => {
                 selectMenu(resourceMenuId, false);
               }}
+              size="lg"
             >
               <FolderKanban aria-hidden="true" />
               <span>资源中心</span>
