@@ -3,10 +3,14 @@ import {
   ChartNoAxesCombined,
   ChevronRight,
   ChevronsUpDown,
+  CircleUserRound,
+  EllipsisVertical,
   FolderKanban,
+  KeyRound,
   Layers3,
   LayoutDashboard,
   LayoutGrid,
+  LogOut,
   type LucideIcon,
   Moon,
   Settings2,
@@ -24,8 +28,12 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -381,17 +389,70 @@ export function AppSidebar({
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" type="button">
-              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <UserRound className="size-4" aria-hidden="true" />
-              </span>
-              <span className="flex min-w-0 flex-1 flex-col items-start gap-0">
-                <span className="truncate text-sm font-semibold">项目用户</span>
-                <span className="truncate text-xs text-sidebar-foreground/60">
-                  you@example.com
-                </span>
-              </span>
-            </SidebarMenuButton>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  className="h-auto min-h-12 data-open:bg-sidebar-accent data-open:text-sidebar-accent-foreground"
+                  size="lg"
+                >
+                  <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                    <UserRound className="size-4" aria-hidden="true" />
+                  </span>
+                  <span className="flex min-w-0 flex-1 flex-col items-start gap-0">
+                    <span className="truncate text-sm font-semibold">
+                      项目用户
+                    </span>
+                    <span className="truncate text-xs text-sidebar-foreground/60">
+                      you@example.com
+                    </span>
+                  </span>
+                  <EllipsisVertical
+                    aria-hidden="true"
+                    className="pointer-events-none ml-auto size-4"
+                  />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-56"
+                side={isMobile ? 'bottom' : 'right'}
+                sideOffset={4}
+              >
+                <DropdownMenuLabel className="p-0 font-normal">
+                  <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                      <UserRound className="size-4" aria-hidden="true" />
+                    </span>
+                    <span className="flex min-w-0 flex-1 flex-col gap-0">
+                      <span className="truncate font-medium">项目用户</span>
+                      <span className="truncate text-xs text-muted-foreground">
+                        you@example.com
+                      </span>
+                    </span>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    <CircleUserRound aria-hidden="true" />
+                    个人信息
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <KeyRound aria-hidden="true" />
+                    修改密码
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings2 aria-hidden="true" />
+                    账号设置
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                  <LogOut aria-hidden="true" />
+                  退出登录
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
