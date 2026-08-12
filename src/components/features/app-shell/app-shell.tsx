@@ -27,6 +27,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+  Item,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
+import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -122,7 +129,7 @@ function AppWorkspaceSwitcher({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="start"
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56"
+            className="w-88 max-w-[calc(100vw-2rem)] p-2"
             side="bottom"
           >
             <DropdownMenuRadioGroup
@@ -143,15 +150,20 @@ function AppWorkspaceSwitcher({
                 return (
                   <DropdownMenuRadioItem
                     key={workspace.id}
+                    className="mb-1 p-0 last:mb-0 focus:bg-transparent focus:text-foreground"
                     value={workspace.id}
                   >
-                    <WorkspaceIcon aria-hidden="true" />
-                    <span className="flex min-w-0 flex-col gap-0.5">
-                      <span className="truncate">{workspace.label}</span>
-                      <span className="truncate text-xs text-muted-foreground">
-                        {workspace.description}
-                      </span>
-                    </span>
+                    <Item className="hover:bg-muted" variant="muted">
+                      <ItemMedia variant="icon">
+                        <WorkspaceIcon aria-hidden="true" />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>{workspace.label}</ItemTitle>
+                        <ItemDescription>
+                          {workspace.description}
+                        </ItemDescription>
+                      </ItemContent>
+                    </Item>
                   </DropdownMenuRadioItem>
                 );
               })}
