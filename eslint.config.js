@@ -70,6 +70,7 @@ export default defineConfig([
     settings: {
       'better-tailwindcss': {
         entryPoint: 'src/styles/global.css',
+        rootFontSize: 16,
       },
     },
   },

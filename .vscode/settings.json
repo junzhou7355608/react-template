@@ -14,7 +14,7 @@
   "tailwindCSS.classFunctions": ["cn", "cva"],
   "tailwindCSS.experimental.configFile": "src/styles/global.css",
   "tailwindCSS.lint.cssConflict": "ignore",
-  "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
+  "tailwindCSS.lint.suggestCanonicalClasses": "warning",
   "tailwindCSS.validate": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib"
