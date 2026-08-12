@@ -27,7 +27,7 @@ export function HomeHero() {
           <h1 className="mt-6 text-4xl/snug font-semibold tracking-[-0.035em] sm:text-5xl/snug lg:text-6xl/snug">
             从可靠的工程基础，开始下一次构建。
           </h1>
-          <p className="mt-6 max-w-xl text-base/7 text-muted-foreground sm:text-lg/8">
+          <p className="mt-6 text-base/7 text-muted-foreground sm:text-lg/8">
             React、TypeScript、Vite 与 shadcn/ui 已配置完成，专注于业务本身。
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
