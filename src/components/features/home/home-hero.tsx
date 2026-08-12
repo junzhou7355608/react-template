@@ -12,7 +12,7 @@ const stackLabels = [
   'shadcn/ui',
 ];
 
-export function DocsHero() {
+export function HomeHero() {
   return (
     <section
       id="overview"
