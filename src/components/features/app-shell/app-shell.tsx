@@ -3,8 +3,10 @@ import {
   ChartNoAxesCombined,
   ChevronRight,
   ChevronsUpDown,
+  FolderKanban,
   Layers3,
   LayoutDashboard,
+  LayoutGrid,
   type LucideIcon,
   Moon,
   Settings2,
@@ -39,7 +41,6 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
@@ -96,6 +97,10 @@ const workspaces: Workspace[] = [
 const overviewHref = '#overview';
 const overviewLabel = '概览';
 const OverviewIcon = BookOpen;
+const overviewMenuId = 'overview';
+const workspaceMenuId = 'workspace';
+const workspaceGroupMenuId = 'workspace-group';
+const resourceMenuId = 'resource';
 
 function AppWorkspaceSwitcher({
   selectedWorkspace,
@@ -176,26 +181,62 @@ function AppWorkspaceSwitcher({
 }
 
 function AppNavItems({
+  activeMenu,
   onNavigate,
+  onSelect,
   workspace,
 }: {
+  activeMenu: string;
   onNavigate?: () => void;
+  onSelect: (menuId: string) => void;
   workspace: Workspace;
 }) {
+  const selectMenu = (menuId: string, closeSidebar = true) => {
+    onSelect(menuId);
+    if (closeSidebar) {
+      onNavigate?.();
+    }
+  };
+
   return (
-    <SidebarMenu>
+    <SidebarMenu className="gap-2">
       <SidebarMenuItem>
-        <SidebarMenuButton asChild isActive>
-          <a aria-current="page" href={overviewHref} onClick={onNavigate}>
+        <SidebarMenuButton asChild isActive={activeMenu === overviewMenuId}>
+          <a
+            aria-current={activeMenu === overviewMenuId ? 'page' : undefined}
+            href={overviewHref}
+            onClick={() => {
+              selectMenu(overviewMenuId);
+            }}
+          >
             <OverviewIcon aria-hidden="true" />
             <span>{overviewLabel}</span>
           </a>
         </SidebarMenuButton>
       </SidebarMenuItem>
       <SidebarMenuItem>
+        <SidebarMenuButton
+          isActive={activeMenu === workspaceMenuId}
+          onClick={() => {
+            selectMenu(workspaceMenuId);
+          }}
+        >
+          <LayoutGrid aria-hidden="true" />
+          <span>工作台</span>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+      <SidebarMenuItem>
         <Collapsible className="group/collapsible" defaultOpen>
           <CollapsibleTrigger asChild>
-            <SidebarMenuButton>
+            <SidebarMenuButton
+              isActive={
+                activeMenu === workspaceGroupMenuId ||
+                activeMenu.startsWith(`workspace:${workspace.id}:`)
+              }
+              onClick={() => {
+                selectMenu(workspaceGroupMenuId, false);
+              }}
+            >
               <Layers3 aria-hidden="true" />
               <span>{workspace.groupLabel}</span>
               <ChevronRight
@@ -208,8 +249,18 @@ function AppNavItems({
             <SidebarMenuSub>
               {workspace.items.map((item) => (
                 <SidebarMenuSubItem key={item}>
-                  <SidebarMenuSubButton asChild>
-                    <button type="button">
+                  <SidebarMenuSubButton
+                    asChild
+                    isActive={
+                      activeMenu === `workspace:${workspace.id}:${item}`
+                    }
+                  >
+                    <button
+                      onClick={() => {
+                        selectMenu(`workspace:${workspace.id}:${item}`);
+                      }}
+                      type="button"
+                    >
                       <span>{item}</span>
                     </button>
                   </SidebarMenuSubButton>
@@ -219,15 +270,75 @@ function AppNavItems({
           </CollapsibleContent>
         </Collapsible>
       </SidebarMenuItem>
+      <SidebarMenuItem>
+        <Collapsible className="group/collapsible">
+          <CollapsibleTrigger asChild>
+            <SidebarMenuButton
+              isActive={
+                activeMenu === resourceMenuId ||
+                activeMenu.startsWith(`${resourceMenuId}:`)
+              }
+              onClick={() => {
+                selectMenu(resourceMenuId, false);
+              }}
+            >
+              <FolderKanban aria-hidden="true" />
+              <span>资源中心</span>
+              <ChevronRight
+                aria-hidden="true"
+                className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90"
+              />
+            </SidebarMenuButton>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <SidebarMenuSub>
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton
+                  asChild
+                  isActive={activeMenu === 'resource:components'}
+                >
+                  <button
+                    onClick={() => {
+                      selectMenu('resource:components');
+                    }}
+                    type="button"
+                  >
+                    <span>组件库</span>
+                  </button>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem>
+                <SidebarMenuSubButton
+                  asChild
+                  isActive={activeMenu === 'resource:assets'}
+                >
+                  <button
+                    onClick={() => {
+                      selectMenu('resource:assets');
+                    }}
+                    type="button"
+                  >
+                    <span>模板资产</span>
+                  </button>
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+            </SidebarMenuSub>
+          </CollapsibleContent>
+        </Collapsible>
+      </SidebarMenuItem>
     </SidebarMenu>
   );
 }
 
 export function AppSidebar({
+  activeMenu,
   selectedWorkspace,
+  onActiveMenuChange,
   onWorkspaceChange,
 }: {
+  activeMenu: string;
   selectedWorkspace: Workspace;
+  onActiveMenuChange: (menuId: string) => void;
   onWorkspaceChange: (workspaceId: WorkspaceId) => void;
 }) {
   const { isMobile, setOpenMobile } = useSidebar();
@@ -247,10 +358,11 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>导航</SidebarGroupLabel>
           <SidebarGroupContent>
             <AppNavItems
+              activeMenu={activeMenu}
               onNavigate={closeMobileSidebar}
+              onSelect={onActiveMenuChange}
               workspace={selectedWorkspace}
             />
           </SidebarGroupContent>
@@ -298,14 +410,22 @@ export function AppHeader() {
 
 export function AppShell({ children }: PropsWithChildren) {
   const [workspaceId, setWorkspaceId] = useState<WorkspaceId>('business');
+  const [activeMenu, setActiveMenu] = useState(overviewMenuId);
   const selectedWorkspace =
     workspaces.find((workspace) => workspace.id === workspaceId) ??
     defaultWorkspace;
 
+  const handleWorkspaceChange = (nextWorkspaceId: WorkspaceId) => {
+    setWorkspaceId(nextWorkspaceId);
+    setActiveMenu(overviewMenuId);
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar
-        onWorkspaceChange={setWorkspaceId}
+        activeMenu={activeMenu}
+        onActiveMenuChange={setActiveMenu}
+        onWorkspaceChange={handleWorkspaceChange}
         selectedWorkspace={selectedWorkspace}
       />
       <SidebarInset>{children}</SidebarInset>
