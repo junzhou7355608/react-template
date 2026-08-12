@@ -1,9 +1,13 @@
 import {
   BookOpen,
+  ChartNoAxesCombined,
   ChevronRight,
   ChevronsUpDown,
   Layers3,
+  LayoutDashboard,
+  type LucideIcon,
   Moon,
+  Settings2,
 } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
 import { useState } from 'react';
@@ -47,15 +51,19 @@ type WorkspaceId = 'business' | 'config' | 'operation';
 interface Workspace {
   id: WorkspaceId;
   label: string;
+  description: string;
   groupLabel: string;
   items: string[];
+  icon: LucideIcon;
 }
 
 const defaultWorkspace: Workspace = {
   id: 'business',
   label: '业务中心',
+  description: '处理订单、客户与日常业务流程',
   groupLabel: '业务管理',
   items: ['订单管理', '客户管理'],
+  icon: LayoutDashboard,
 };
 
 const workspaces: Workspace[] = [
@@ -63,14 +71,18 @@ const workspaces: Workspace[] = [
   {
     id: 'config',
     label: '配置中心',
+    description: '管理角色、权限与系统参数',
     groupLabel: '系统配置',
     items: ['角色权限', '参数设置'],
+    icon: Settings2,
   },
   {
     id: 'operation',
     label: '经营中心',
+    description: '查看业绩、趋势与经营分析',
     groupLabel: '经营分析',
     items: ['业绩看板', '趋势报表'],
+    icon: ChartNoAxesCombined,
   },
 ];
 
@@ -95,7 +107,7 @@ function AppWorkspaceSwitcher({
               size="lg"
             >
               <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <Layers3 className="size-4" aria-hidden="true" />
+                <selectedWorkspace.icon className="size-4" aria-hidden="true" />
               </span>
               <span className="flex min-w-0 flex-1 flex-col items-start gap-0">
                 <span className="truncate text-sm font-semibold">
@@ -125,11 +137,24 @@ function AppWorkspaceSwitcher({
                 }
               }}
             >
-              {workspaces.map((workspace) => (
-                <DropdownMenuRadioItem key={workspace.id} value={workspace.id}>
-                  {workspace.label}
-                </DropdownMenuRadioItem>
-              ))}
+              {workspaces.map((workspace) => {
+                const WorkspaceIcon = workspace.icon;
+
+                return (
+                  <DropdownMenuRadioItem
+                    key={workspace.id}
+                    value={workspace.id}
+                  >
+                    <WorkspaceIcon aria-hidden="true" />
+                    <span className="flex min-w-0 flex-col gap-0.5">
+                      <span className="truncate">{workspace.label}</span>
+                      <span className="truncate text-xs text-muted-foreground">
+                        {workspace.description}
+                      </span>
+                    </span>
+                  </DropdownMenuRadioItem>
+                );
+              })}
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
