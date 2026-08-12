@@ -453,7 +453,7 @@ export function AppHeader() {
   const sidebarOpen = isMobile ? openMobile : open;
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border/80 bg-background/95 px-4 backdrop-blur-sm supports-backdrop-filter:bg-background/80">
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between bg-linear-to-b from-sidebar via-sidebar/80 to-transparent px-4">
       <SidebarTrigger
         aria-expanded={sidebarOpen}
         aria-label="打开或关闭应用导航"
@@ -491,7 +491,7 @@ export function AppShell({ children }: PropsWithChildren) {
         onWorkspaceChange={handleWorkspaceChange}
         selectedWorkspace={selectedWorkspace}
       />
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset className="bg-sidebar">{children}</SidebarInset>
     </SidebarProvider>
   );
 }
