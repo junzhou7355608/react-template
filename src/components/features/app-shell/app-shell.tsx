@@ -455,7 +455,7 @@ export function AppHeader() {
   const sidebarOpen = isMobile ? openMobile : open;
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between bg-linear-to-b from-sidebar to-transparent px-4">
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between bg-sidebar px-4">
       <SidebarTrigger
         aria-expanded={sidebarOpen}
         aria-label="打开或关闭应用导航"
