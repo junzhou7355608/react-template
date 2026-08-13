@@ -1,14 +1,12 @@
 import {
   ArrowDownRight,
   ArrowUpRight,
-  CircleCheck,
   Clock3,
   CreditCard,
   PackageCheck,
   UsersRound,
 } from 'lucide-react';
 
-import { Badge } from '@/components/ui/badge';
 import {
   Card,
   CardContent,
@@ -52,19 +50,9 @@ const metrics = [
   },
 ] as const;
 
-const activities = [
-  { title: '华东区域完成本周订单确认', time: '10分钟前', status: '已完成' },
-  {
-    title: '客户「远山科技」更新了联系信息',
-    time: '32分钟前',
-    status: '已更新',
-  },
-  { title: '新的服务申请等待分配负责人', time: '1小时前', status: '待处理' },
-];
-
 export function OverviewSummary() {
   return (
-    <section className="space-y-8 py-8 sm:py-10" aria-label="业务概览">
+    <section className="py-8 sm:py-10" aria-label="业务概览">
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {metrics.map((metric) => {
           const MetricIcon = metric.icon;
@@ -95,46 +83,6 @@ export function OverviewSummary() {
           );
         })}
       </div>
-
-      <Card>
-        <CardHeader className="border-b">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <CardTitle>最近动态</CardTitle>
-              <CardDescription className="mt-1">
-                团队空间里刚刚发生的事情
-              </CardDescription>
-            </div>
-            <Badge variant="outline">3 条更新</Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="divide-y p-0">
-          {activities.map((activity) => (
-            <div
-              key={activity.title}
-              className="flex items-center gap-3 px-6 py-4 sm:px-7"
-            >
-              <span className="grid size-8 shrink-0 place-items-center rounded-full bg-muted">
-                <CircleCheck
-                  aria-hidden="true"
-                  className="size-4 text-muted-foreground"
-                />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">{activity.title}</p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {activity.time}
-                </p>
-              </div>
-              <Badge
-                variant={activity.status === '待处理' ? 'secondary' : 'outline'}
-              >
-                {activity.status}
-              </Badge>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
     </section>
   );
 }
