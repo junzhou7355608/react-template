@@ -59,11 +59,16 @@ export function OverviewSummary() {
           const TrendIcon = metric.trendUp ? ArrowUpRight : ArrowDownRight;
 
           return (
-            <Card key={metric.label} className="gap-5 py-5">
+            <Card
+              key={metric.label}
+              className="gap-5 border-white/20 bg-white/10 py-5 text-white shadow-black/10 backdrop-blur-xl"
+            >
               <CardHeader className="gap-0">
                 <div className="flex items-center justify-between gap-4">
-                  <CardDescription>{metric.label}</CardDescription>
-                  <span className="grid size-9 place-items-center rounded-xl bg-muted text-muted-foreground">
+                  <CardDescription className="text-white/70">
+                    {metric.label}
+                  </CardDescription>
+                  <span className="grid size-9 place-items-center rounded-xl bg-white/10 text-white/80">
                     <MetricIcon aria-hidden="true" className="size-4" />
                   </span>
                 </div>
@@ -71,10 +76,10 @@ export function OverviewSummary() {
                   {metric.value}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <CardContent className="flex items-center gap-1.5 text-xs text-white/65">
                 <TrendIcon
                   aria-hidden="true"
-                  className={`size-3.5 ${metric.trendUp ? 'text-emerald-600' : 'text-amber-600'}`}
+                  className={`size-3.5 ${metric.trendUp ? 'text-emerald-300' : 'text-amber-300'}`}
                 />
                 <span>{metric.trend}</span>
                 <span>{metric.trendLabel}</span>
