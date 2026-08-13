@@ -8,7 +8,7 @@ export function WelcomeHero({ children }: PropsWithChildren) {
   return (
     <section
       aria-labelledby="welcome-title"
-      className="relative isolate overflow-hidden rounded-3xl px-4 pt-7 shadow-sm sm:px-10 sm:pt-14 lg:px-14 lg:pt-16"
+      className="relative isolate overflow-hidden rounded-2xl px-4 pt-7 shadow-sm sm:px-10 sm:pt-14 lg:px-14 lg:pt-16"
     >
       <div
         aria-hidden="true"
