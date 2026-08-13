@@ -6,7 +6,7 @@ export function OverviewPage() {
   return (
     <AppShell>
       <AppHeader />
-      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 pb-8 sm:px-6 lg:pb-10">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-3 pb-8 sm:px-6 lg:pb-10">
         <WelcomeHero>
           <OverviewSummary />
         </WelcomeHero>

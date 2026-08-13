@@ -52,8 +52,8 @@ const metrics = [
 
 export function OverviewSummary() {
   return (
-    <section className="py-8 sm:py-10" aria-label="业务概览">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="py-5 sm:py-10" aria-label="业务概览">
+      <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         {metrics.map((metric) => {
           const MetricIcon = metric.icon;
           const TrendIcon = metric.trendUp ? ArrowUpRight : ArrowDownRight;
@@ -61,22 +61,25 @@ export function OverviewSummary() {
           return (
             <Card
               key={metric.label}
-              className="gap-5 border-white/20 bg-white/10 py-5 text-white shadow-black/10 backdrop-blur-xl"
+              className="gap-3 border-white/20 bg-white/10 py-3 text-white shadow-black/10 backdrop-blur-xl [--card-spacing:--spacing(3)] sm:gap-5 sm:py-5 sm:[--card-spacing:--spacing(4)]"
             >
               <CardHeader className="gap-0">
                 <div className="flex items-center justify-between gap-4">
-                  <CardDescription className="text-white/70">
+                  <CardDescription className="text-xs text-white/70 sm:text-sm">
                     {metric.label}
                   </CardDescription>
-                  <span className="grid size-9 place-items-center rounded-xl bg-white/10 text-white/80">
-                    <MetricIcon aria-hidden="true" className="size-4" />
+                  <span className="grid size-8 place-items-center rounded-lg bg-white/10 text-white/80 sm:size-9 sm:rounded-xl">
+                    <MetricIcon
+                      aria-hidden="true"
+                      className="size-3.5 sm:size-4"
+                    />
                   </span>
                 </div>
-                <CardTitle className="mt-4 text-2xl tracking-tight">
+                <CardTitle className="mt-3 text-xl tracking-tight sm:mt-4 sm:text-2xl">
                   {metric.value}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="flex items-center gap-1.5 text-xs text-white/65">
+              <CardContent className="flex min-w-0 items-center gap-1 text-xs whitespace-nowrap text-white/65 sm:gap-1.5">
                 <TrendIcon
                   aria-hidden="true"
                   className={`size-3.5 ${metric.trendUp ? 'text-emerald-300' : 'text-amber-300'}`}
