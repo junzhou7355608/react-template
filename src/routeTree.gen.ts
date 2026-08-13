@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OverviewRouteImport } from './routes/overview'
+import { Route as WorkbenchRouteImport } from './routes/workbench'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OverviewRoute = OverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WorkbenchRoute = WorkbenchRouteImport.update({
+  id: '/workbench',
+  path: '/workbench',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/overview': typeof OverviewRoute
+  '/workbench': typeof WorkbenchRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/overview': typeof OverviewRoute
+  '/workbench': typeof WorkbenchRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/overview': typeof OverviewRoute
+  '/workbench': typeof WorkbenchRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/overview' | '/workbench'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/overview' | '/workbench'
+  id: '__root__' | '/' | '/overview' | '/workbench'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OverviewRoute: typeof OverviewRoute
+  WorkbenchRoute: typeof WorkbenchRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/overview': {
+      id: '/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof OverviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/workbench': {
+      id: '/workbench'
+      path: '/workbench'
+      fullPath: '/workbench'
+      preLoaderRoute: typeof WorkbenchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OverviewRoute: OverviewRoute,
+  WorkbenchRoute: WorkbenchRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

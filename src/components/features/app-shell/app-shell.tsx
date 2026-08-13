@@ -1,3 +1,4 @@
+import { Link, useLocation } from '@tanstack/react-router';
 import {
   BookOpen,
   ChartNoAxesCombined,
@@ -101,7 +102,6 @@ const workspaces: Workspace[] = [
   },
 ];
 
-const overviewHref = '#overview';
 const overviewLabel = '概览';
 const OverviewIcon = BookOpen;
 const overviewMenuId = 'overview';
@@ -198,6 +198,10 @@ function AppNavItems({
   onSelect: (menuId: string) => void;
   workspace: Workspace;
 }) {
+  const location = useLocation();
+  const isOverviewActive =
+    location.pathname === '/' || location.pathname === '/overview';
+  const isWorkbenchActive = location.pathname === '/workbench';
   const selectMenu = (menuId: string, closeSidebar = true) => {
     onSelect(menuId);
     if (closeSidebar) {
@@ -208,33 +212,31 @@ function AppNavItems({
   return (
     <SidebarMenu className="gap-1">
       <SidebarMenuItem>
-        <SidebarMenuButton
-          asChild
-          isActive={activeMenu === overviewMenuId}
-          size="lg"
-        >
-          <a
-            aria-current={activeMenu === overviewMenuId ? 'page' : undefined}
-            href={overviewHref}
+        <SidebarMenuButton asChild isActive={isOverviewActive} size="lg">
+          <Link
+            aria-current={isOverviewActive ? 'page' : undefined}
+            to="/overview"
             onClick={() => {
               selectMenu(overviewMenuId);
             }}
           >
             <OverviewIcon aria-hidden="true" />
             <span>{overviewLabel}</span>
-          </a>
+          </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
       <SidebarMenuItem>
-        <SidebarMenuButton
-          isActive={activeMenu === workspaceMenuId}
-          onClick={() => {
-            selectMenu(workspaceMenuId);
-          }}
-          size="lg"
-        >
-          <LayoutGrid aria-hidden="true" />
-          <span>工作台</span>
+        <SidebarMenuButton asChild isActive={isWorkbenchActive} size="lg">
+          <Link
+            aria-current={isWorkbenchActive ? 'page' : undefined}
+            to="/workbench"
+            onClick={() => {
+              selectMenu(workspaceMenuId);
+            }}
+          >
+            <LayoutGrid aria-hidden="true" />
+            <span>工作台</span>
+          </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
       <SidebarMenuItem>
