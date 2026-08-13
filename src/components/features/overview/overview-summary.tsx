@@ -53,7 +53,7 @@ const metrics = [
 export function OverviewSummary() {
   return (
     <section className="py-5 sm:py-10" aria-label="业务概览">
-      <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-4 xl:grid-cols-4">
         {metrics.map((metric) => {
           const MetricIcon = metric.icon;
           const TrendIcon = metric.trendUp ? ArrowUpRight : ArrowDownRight;

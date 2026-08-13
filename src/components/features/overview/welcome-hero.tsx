@@ -29,7 +29,7 @@ export function WelcomeHero({ children }: PropsWithChildren) {
         </Badge>
         <h1
           id="welcome-title"
-          className="mt-4 max-w-xl text-3xl/9 font-semibold tracking-[-0.04em] sm:mt-6 sm:text-5xl/snug"
+          className="mt-4 max-w-xl text-3xl/10 font-semibold tracking-[-0.04em] sm:mt-6 sm:text-5xl/snug"
         >
           早上好，项目用户。
           <br />
