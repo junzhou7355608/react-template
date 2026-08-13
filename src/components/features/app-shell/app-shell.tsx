@@ -455,14 +455,15 @@ export function AppHeader() {
   const sidebarOpen = isMobile ? openMobile : open;
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between bg-sidebar px-4">
+    <header className="sticky top-0 z-10 flex h-12 items-center justify-between bg-sidebar px-2">
       <SidebarTrigger
         aria-expanded={sidebarOpen}
         aria-label="打开或关闭应用导航"
+        size="icon-lg"
       />
       <Button
         aria-label="切换深色模式（暂未启用）"
-        size="icon-sm"
+        size="icon-lg"
         title="切换深色模式（暂未启用）"
         type="button"
         variant="ghost"
